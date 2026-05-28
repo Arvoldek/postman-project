@@ -25,55 +25,6 @@ This project implements a comprehensive API test automation suite for JSONPlaceh
 
 ---
 
-## 📦 Project Structure
-
-```
-postman-project/
-├── postman/
-│   ├── collections/
-│   │   └── jsonplaceholder.postman_collection/
-│   │       ├── .resources/
-│   │       │   └── definition.yaml
-│   │       ├── Smoke Tests/
-│   │       ├── Positive Tests/
-│   │       ├── Negative Tests/
-│   │       ├── Regression Tests/
-│   │       ├── Setup/
-│   │       └── Teardown/
-│   ├── environments/
-│   │   ├── local.postman_environment.yaml
-│   │   ├── staging.postman_environment.yaml
-│   │   └── production.postman_environment.yaml
-│   └── globals/
-│       └── globals.postman_globals.yaml
-├── tests/
-│   ├── data/
-│   │   ├── test-data.json
-│   │   └── fixtures/
-│   ├── scripts/
-│   │   ├── pre-request/
-│   │   │   └── auth.js
-│   │   ├── tests/
-│   │   │   ├── posts.js
-│   │   │   ├── users.js
-│   │   │   ├── comments.js
-│   │   │   └── common.js
-│   │   └── utilities/
-│   │       ├── helpers.js
-│   │       └── validations.js
-│   └── reports/
-│       └── .gitkeep
-├── .github/
-│   └── workflows/
-│       ├── api-tests.yml
-│       └── manual-dispatch.yml
-├── package.json
-├── package-lock.json
-└── README.md
-```
-
----
-
 ## 🚀 Quick Start
 
 ### Prerequisites
