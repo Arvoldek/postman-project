@@ -94,16 +94,10 @@ postman-project/
 
 ### Local Execution with Newman
 
-Run all tests with HTML and JUnit reports:
+Run all tests with HTML report:
 
 ```bash
 npm run test:html
-```
-
-Run all tests with JUnit report:
-
-```bash
-npm run test:junit
 ```
 
 Run smoke tests only:
@@ -133,14 +127,13 @@ newman run postman/collections/jsonplaceholder.postman_collection.json \
 |--------|-------------|
 | `npm test` | Run all tests with CLI reporter |
 | `npm run test:html` | Run all tests with HTML and CLI reporters |
-| `npm run test:junit` | Run all tests with JUnit and CLI reporters |
 | `npm run test:smoke` | Run smoke tests only |
 | `npm run test:regression` | Run regression tests only |
 | `npm run test:positive` | Run positive tests only |
 | `npm run test:negative` | Run negative tests only |
 | `npm run test:staging` | Run all tests against staging environment |
 | `npm run test:production` | Run all tests against production environment |
-| `npm run test:all` | Run full test suite with both HTML and JUnit reports |
+| `npm run test:all` | Run full test suite with HTML report |
 
 ---
 
@@ -213,7 +206,7 @@ This project uses GitHub Actions for continuous integration and automated testin
 1. **API Tests Workflow** (`.github/workflows/api-tests.yml`)
    - **Triggers:** Push to main branch, Pull request to main branch, Manual dispatch
    - **Features:** Auto-runs on code changes, supports environment selection (local/staging), folder-based test execution
-   - **Output:** HTML and JUnit reports uploaded as artifacts, test results published to GitHub Checks
+   - **Output:** HTML reports uploaded as artifacts
 
 2. **Manual Dispatch Workflow** (`.github/workflows/manual-dispatch.yml`)
    - **Triggers:** Manual dispatch only
@@ -221,7 +214,7 @@ This project uses GitHub Actions for continuous integration and automated testin
      - `environment`: local, staging, or production
      - `test-type`: full, smoke, regression, positive, or negative
      - `iterations`: Number of test iterations (default: 1)
-   - **Output:** HTML and JUnit reports uploaded as artifacts
+   - **Output:** HTML reports uploaded as artifacts
 
 ### Triggering Tests
 
@@ -240,7 +233,7 @@ To manually trigger tests:
 
 ## 📄 Test Reports
 
-Test reports are generated in multiple formats:
+Test reports are generated in HTML format:
 
 ### HTML Reports
 
@@ -251,19 +244,11 @@ Interactive HTML reports are generated using `newman-reporter-html`. These repor
 - Assertion results
 - Timing information
 
-### JUnit Reports
-
-JUnit XML reports are generated using `newman-reporter-junitfull`. These reports are:
-- Compatible with CI/CD systems
-- Used for test result visualization in GitHub
-- Suitable for integration with other testing tools
-
 ### Report Locations
 
 | Format | Location |
 |--------|----------|
 | HTML | `reports/test-results.html` (or timestamped file) |
-| JUnit | `reports/test-results.xml` (or timestamped file) |
 
 ---
 

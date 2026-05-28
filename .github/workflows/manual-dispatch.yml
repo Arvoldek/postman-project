@@ -71,8 +71,7 @@ jobs:
             CMD="$CMD --folder \"$FOLDER\""
           fi
           CMD="$CMD --iteration-count ${{ inputs.iterations }}"
-          CMD="$CMD --reporters cli,junit,html"
-          CMD="$CMD --reporter-junit-export manual-test-results.xml"
+          CMD="$CMD --reporters cli,html"
           CMD="$CMD --reporter-html-export manual-test-results.html"
           CMD="$CMD --color on"
           
@@ -83,6 +82,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: manual-api-test-results
-          path: |
-            manual-test-results.html
-            manual-test-results.xml
+          path: manual-test-results.html

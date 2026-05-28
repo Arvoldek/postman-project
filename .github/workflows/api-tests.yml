@@ -47,8 +47,7 @@ jobs:
           if [ -n "${{ inputs.folder }}" ]; then
             CMD="$CMD --folder \"${{ inputs.folder }}\""
           fi
-          CMD="$CMD --reporters cli,junit,html"
-          CMD="$CMD --reporter-junit-export test-results.xml"
+          CMD="$CMD --reporters cli,html"
           CMD="$CMD --reporter-html-export test-results.html"
           CMD="$CMD --color on"
           
@@ -60,20 +59,6 @@ jobs:
         with:
           name: api-test-results-html
           path: test-results.html
-
-      - name: Upload Test Results (JUnit)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-test-results-junit
-          path: test-results.xml
-
-      - name: Publish Test Results
-        if: always()
-        uses: mikepenz/action-junit-report@v3
-        with:
-          report_paths: 'test-results.xml'
-          fail_on_failure: false
 
       - name: Check Test Results
         if: steps.api-tests.outcome != 'success'

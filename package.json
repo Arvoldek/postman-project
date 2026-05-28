@@ -9,14 +9,13 @@
   "scripts": {
     "test": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli",
     "test:html": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli,html --reporter-html-export reports/test-results.html",
-    "test:junit": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli,junitfull --reporter-junitfull-export reports/test-results.xml",
     "test:smoke": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Smoke Tests\" --reporters cli",
-    "test:regression": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Regression Tests\" --reporters cli,junitfull --reporter-junitfull-export reports/regression-results.xml",
+    "test:regression": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Regression Tests\" --reporters cli,html --reporter-html-export reports/regression-results.html",
     "test:positive": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Positive Tests\" --reporters cli",
     "test:negative": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Negative Tests\" --reporters cli",
     "test:staging": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/staging.postman_environment.json --reporters cli",
     "test:production": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/production.postman_environment.json --reporters cli",
-    "test:all": "npm run test:html && npm run test:junit"
+    "test:all": "npm run test:html"
   },
   "repository": {
     "type": "git",
@@ -32,7 +31,6 @@
   "homepage": "https://github.com/Arvoldek/postman-project#readme",
   "devDependencies": {
     "newman": "^4.6.1",
-    "newman-reporter-html": "^1.0.5",
-    "newman-reporter-junitfull": "^1.1.1"
+    "newman-reporter-html": "^1.0.5"
   }
 }

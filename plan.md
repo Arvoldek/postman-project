@@ -79,7 +79,7 @@ postman-project/
 - [x] Initialize Node.js project (`npm init -y`)
 - [x] Install required dependencies:
   ```bash
-  npm install -D newman newman-reporter-html newman-reporter-junitfull
+  npm install -D newman newman-reporter-html
   ```
 
 ### 1.2 Postman Setup
@@ -439,12 +439,6 @@ newman run postman/collections/jsonplaceholder.postman_collection.json \
   --reporters cli,html \
   --reporter-html-export reports/test-results-$(date +%Y%m%d-%H%M%S).html
 
-# With JSON reporter for CI
-newman run postman/collections/jsonplaceholder.postman_collection.json \
-  -e postman/environments/local.postman_environment.json \
-  --reporters cli,junit \
-  --reporter-junit-export reports/test-results.xml
-
 # With custom delay between requests
 newman run postman/collections/jsonplaceholder.postman_collection.json \
   --delay-request 100
@@ -460,14 +454,13 @@ newman run postman/collections/jsonplaceholder.postman_collection.json \
   "scripts": {
     "test": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli",
     "test:html": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli,html --reporter-html-export reports/test-results.html",
-    "test:junit": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli,junitfull --reporter-junitfull-export reports/test-results.xml",
     "test:smoke": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Smoke Tests\" --reporters cli",
-    "test:regression": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Regression Tests\" --reporters cli,junitfull --reporter-junitfull-export reports/regression-results.xml",
+    "test:regression": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Regression Tests\" --reporters cli,html --reporter-html-export reports/regression-results.html",
     "test:positive": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Positive Tests\" --reporters cli",
     "test:negative": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Negative Tests\" --reporters cli",
     "test:staging": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/staging.postman_environment.json --reporters cli",
     "test:production": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/production.postman_environment.json --reporters cli",
-    "test:all": "npm run test:html && npm run test:junit"
+    "test:all": "npm run test:html"
   }
 }
 ```
@@ -532,8 +525,7 @@ jobs:
           newman run postman/collections/jsonplaceholder.postman_collection.json \
             -e postman/environments/${{ inputs.environment || 'local' }}.postman_environment.json \
             ${{ inputs.folder && format('--folder "{0}"', inputs.folder) || '' }} \
-            --reporters cli,junit,html \
-            --reporter-junit-export test-results.xml \
+            --reporters cli,html \
             --reporter-html-export test-results.html \
             --color on
 
@@ -543,20 +535,6 @@ jobs:
         with:
           name: api-test-results-html
           path: test-results.html
-
-      - name: Upload Test Results (JUnit)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-test-results-junit
-          path: test-results.xml
-
-      - name: Publish Test Results
-        if: always()
-        uses: mikepenz/action-junit-report@v3
-        with:
-          report_paths: 'test-results.xml'
-          fail_on_failure: false
 
       - name: Check Test Results
         if: steps.api-tests.outcome != 'success'
@@ -643,8 +621,7 @@ jobs:
             -e postman/environments/${{ inputs.environment }}.postman_environment.json \
             ${{ FOLDER != '' && format('--folder "{0}"', FOLDER) || '' }} \
             --iteration-count ${{ inputs.iterations }} \
-            --reporters cli,junit,html \
-            --reporter-junit-export manual-test-results.xml \
+            --reporters cli,html \
             --reporter-html-export manual-test-results.html \
             --color on
 
@@ -653,9 +630,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: manual-api-test-results
-          path: |
-            manual-test-results.html
-            manual-test-results.xml
+          path: manual-test-results.html
 ```
 
 ---
@@ -669,12 +644,7 @@ jobs:
 - [x] Store reports as artifacts in GitHub Actions
 - [ ] Include screenshots in reports for failed tests (future enhancement)
 
-### 6.2 JUnit Reports
-- [x] Generate JUnit XML format for CI integration
-- [x] Enable test result visualization in GitHub via mikepenz/action-junit-report
-- [x] Support for test failure analysis
-
-### 6.3 Custom Dashboard
+### 6.2 Custom Dashboard
 - [x] Test results visible in GitHub Checks
 - [x] Test artifacts downloadable from GitHub Actions
 - [ ] Custom dashboard with historical trends (future enhancement)
@@ -804,7 +774,6 @@ jobs:
 | Node.js | 20.x | Runtime for Newman |
 | GitHub Actions | N/A | CI/CD automation |
 | newman-reporter-html | Latest | HTML test reports |
-| newman-reporter-junitfull | Latest | JUnit XML test reports |
 
 ---
 
@@ -848,7 +817,7 @@ jobs:
 - [x] Test results visible in GitHub Checks
 - [x] Package.json scripts for all test types (smoke, regression, positive, negative)
 - [x] Multiple environment support (local, staging, production)
-- [x] HTML and JUnit report generation
+- [x] HTML report generation
 
 ### Current Test Results
 - **Total Requests:** 29
