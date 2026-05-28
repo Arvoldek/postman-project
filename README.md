@@ -204,8 +204,8 @@ This project uses GitHub Actions for continuous integration and automated testin
 ### Workflows
 
 1. **API Tests Workflow** (`.github/workflows/api-tests.yml`)
-   - **Triggers:** Push to main branch, Pull request to main branch, Manual dispatch
-   - **Features:** Auto-runs on code changes, supports environment selection (local/staging), folder-based test execution
+   - **Triggers:** Push to main branch, Pull request to main branch
+   - **Features:** Auto-runs on code changes against local environment
    - **Output:** HTML reports uploaded as artifacts
 
 2. **Manual Dispatch Workflow** (`.github/workflows/manual-dispatch.yml`)
