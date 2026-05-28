@@ -365,7 +365,7 @@ postman collection run postman/collections/jsonplaceholder.postman_collection \
   --verbose
 ```
 
-**Note:** HTML reporter is not supported for v3 collections. Only the CLI reporter is available for multi-protocol collections.
+**Note:** HTML reporter is not supported for v3 collections. For visual HTML reports, use the Postman desktop application to import the v3 collection and generate reports there. The CLI provides text-based output for automated runs.
 
 ---
 
