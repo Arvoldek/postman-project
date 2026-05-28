@@ -45,7 +45,7 @@ jobs:
       - name: Run API Tests
         id: api-tests
         run: |
-          CMD="newman run postman/collections/jsonplaceholder.postman_collection.json"
+          CMD="npx newman run postman/collections/jsonplaceholder.postman_collection.json"
           CMD="$CMD -e postman/environments/${{ inputs.environment || 'local' }}.postman_environment.json"
           if [ -n "${{ inputs.folder }}" ]; then
             CMD="$CMD --folder \"${{ inputs.folder }}\""

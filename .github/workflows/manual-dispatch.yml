@@ -68,7 +68,7 @@ jobs:
               ;;
           esac
           
-          CMD="newman run postman/collections/jsonplaceholder.postman_collection.json"
+          CMD="npx newman run postman/collections/jsonplaceholder.postman_collection.json"
           CMD="$CMD -e postman/environments/${{ inputs.environment }}.postman_environment.json"
           if [ -n "$FOLDER" ]; then
             CMD="$CMD --folder \"$FOLDER\""
