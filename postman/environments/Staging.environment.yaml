@@ -1,13 +1,12 @@
-$kind: environment
-id: production
-name: Production
+name: Staging
 values:
   - key: baseUrl
     value: https://jsonplaceholder.typicode.com
     type: default
   - key: timeout
-    value: '60000'
+    value: "30000"
     type: default
   - key: delay
-    value: '200'
+    value: "100"
     type: default
+color: 0
