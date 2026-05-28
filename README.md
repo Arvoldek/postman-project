@@ -6,7 +6,7 @@
 
 ---
 
-## 📋 Overview
+## Overview
 
 This project implements a comprehensive API test automation suite for JSONPlaceholder (a free fake API for testing) using Postman. The tests can be executed:
 - Locally via Postman CLI
@@ -15,7 +15,7 @@ This project implements a comprehensive API test automation suite for JSONPlaceh
 
 ---
 
-## 🎯 Objectives
+## Objectives
 
 - Create maintainable API test suite for JSONPlaceholder REST API
 - Ensure tests run consistently across multiple environments
@@ -25,16 +25,20 @@ This project implements a comprehensive API test automation suite for JSONPlaceh
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
-### Prerequisites
+<details>
+<summary>Prerequisites</summary>
 
 - [Node.js](https://nodejs.org/) (v20.x or later)
 - [npm](https://www.npmjs.com/) (comes with Node.js)
 - [Postman](https://www.postman.com/downloads/) (optional, for manual testing)
 - [Git](https://git-scm.com/) (optional, for version control)
 
-### Installation
+</details>
+
+<details>
+<summary>Installation</summary>
 
 1. **Clone the repository:**
    ```bash
@@ -47,11 +51,14 @@ This project implements a comprehensive API test automation suite for JSONPlaceh
    npm install
    ```
 
+</details>
+
 ---
 
-## 🏃 Running Tests
+## Running Tests
 
-### Local Execution with Postman CLI
+<details>
+<summary>Local Execution with Postman CLI</summary>
 
 Run all tests with HTML report:
 
@@ -79,7 +86,10 @@ postman collection run postman/collections/jsonplaceholder.postman_collection \
   --reporters cli
 ```
 
-### Available npm Scripts
+</details>
+
+<details>
+<summary>Available npm Scripts</summary>
 
 | Script | Description |
 |--------|-------------|
@@ -91,11 +101,14 @@ postman collection run postman/collections/jsonplaceholder.postman_collection \
 | `npm run test:staging` | Run all tests against staging environment |
 | `npm run test:production` | Run all tests against production environment |
 
+</details>
+
 ---
 
-## 🛠 Configuration
+## Configuration
 
-### Environment Variables
+<details>
+<summary>Environment Variables</summary>
 
 The project uses Postman environment files to manage different configurations:
 
@@ -107,11 +120,14 @@ The project uses Postman environment files to manage different configurations:
 
 You can create additional environments as needed by copying and modifying the existing environment files.
 
+</details>
+
 ---
 
-## 🔧 Test Design
+## Test Design
 
-### Test Case Categories
+<details>
+<summary>Test Case Categories</summary>
 
 | Category | Tests | Priority |
 |----------|-------|----------|
@@ -122,18 +138,24 @@ You can create additional environments as needed by copying and modifying the ex
 | Edge Cases | 3 | Medium/Low |
 | **Total** | **30+** | - |
 
-### Test Types
+</details>
+
+<details>
+<summary>Test Types</summary>
 
 - **Positive Tests:** Verify that the API works as expected with valid inputs
 - **Negative Tests:** Verify that the API handles invalid inputs and edge cases correctly
 - **Smoke Tests:** Quick tests to verify basic functionality
 - **Regression Tests:** Comprehensive tests to ensure no existing functionality is broken
 
+</details>
+
 ---
 
-## 📊 Test Coverage
+## Test Coverage
 
-### Endpoints Covered
+<details>
+<summary>Endpoints Covered</summary>
 
 | Resource | Endpoints | Coverage |
 |----------|-----------|----------|
@@ -143,7 +165,10 @@ You can create additional environments as needed by copying and modifying the ex
 | Albums | GET | 100% |
 | Photos | GET | 100% |
 
-### HTTP Methods Covered
+</details>
+
+<details>
+<summary>HTTP Methods Covered</summary>
 
 - GET
 - POST
@@ -151,13 +176,16 @@ You can create additional environments as needed by copying and modifying the ex
 - PATCH
 - DELETE
 
+</details>
+
 ---
 
-## 🔄 CI/CD Integration
+## CI/CD Integration
 
 This project uses GitHub Actions for continuous integration and automated testing.
 
-### Workflows
+<details>
+<summary>Workflows</summary>
 
 1. **API Tests Workflow** (`.github/workflows/api-tests.yml`)
    - **Triggers:** Push to main branch, Pull request to main branch
@@ -172,7 +200,10 @@ This project uses GitHub Actions for continuous integration and automated testin
      - `iterations`: Number of test iterations (default: 1)
    - **Output:** HTML reports uploaded as artifacts
 
-### Triggering Tests
+</details>
+
+<details>
+<summary>Triggering Tests</summary>
 
 Tests are automatically triggered on:
 - Push to main branch
@@ -185,18 +216,21 @@ To manually trigger tests:
 4. Select the environment and options
 5. Click "Run workflow"
 
----
+</details>
 
 ---
 
-## 📦 Postman Collection
+---
+
+## Postman Collection
 
 The main Postman collection is located at:
 ```
 postman/collections/jsonplaceholder.postman_collection.json
 ```
 
-### Collection Structure
+<details>
+<summary>Collection Structure</summary>
 
 ```
 JSONPlaceholder API Tests
@@ -235,11 +269,14 @@ JSONPlaceholder API Tests
     └── Smoke Tests
 ```
 
+</details>
+
 ---
 
-## 🤝 Contributing
+## Contributing
 
-### Adding New Tests
+<details>
+<summary>Adding New Tests</summary>
 
 1. Open the Postman collection in Postman
 2. Add a new request to the appropriate folder
@@ -247,7 +284,10 @@ JSONPlaceholder API Tests
 4. Export the collection to `postman/collections/jsonplaceholder.postman_collection.json`
 5. Commit and push the changes
 
-### Test Script Guidelines
+</details>
+
+<details>
+<summary>Test Script Guidelines</summary>
 
 - Use descriptive test names
 - Include assertions for status codes, response structure, and data validation
@@ -255,7 +295,10 @@ JSONPlaceholder API Tests
 - Generate unique data for each test run when needed
 - Clean up resources after tests (DELETE created posts)
 
-### Example Test Script
+</details>
+
+<details>
+<summary>Example Test Script</summary>
 
 ```javascript
 // Verify status code
@@ -287,11 +330,14 @@ pm.test("Each post has required fields", function() {
 });
 ```
 
+</details>
+
 ---
 
-## 📋 Best Practices
+## Best Practices
 
-### Test Design
+<details>
+<summary>Test Design</summary>
 
 1. **Clear Naming Convention**
    - Use consistent ID format: `API-{Resource}-{Sequence}`
@@ -319,7 +365,10 @@ pm.test("Each post has required fields", function() {
    - Verify appropriate error messages
    - Check error response structure
 
-### Postman Best Practices
+</details>
+
+<details>
+<summary>Postman Best Practices</summary>
 
 1. **Collection Organization**
    - Use folders to group related tests
@@ -336,11 +385,14 @@ pm.test("Each post has required fields", function() {
    - Keep test scripts focused and simple
    - Extract common functions to utility scripts
 
+</details>
+
 ---
 
-## 🔍 Troubleshooting
+## Troubleshooting
 
-### Common Issues
+<details>
+<summary>Common Issues</summary>
 
 1. **Tests failing locally but passing in CI**
    - Check environment variables
@@ -356,7 +408,10 @@ pm.test("Each post has required fields", function() {
    - Run `npm install` to install all dependencies
    - Check `package.json` for required packages
 
-### Debugging
+</details>
+
+<details>
+<summary>Debugging</summary>
 
 Run tests with verbose output:
 ```bash
@@ -367,9 +422,11 @@ postman collection run postman/collections/jsonplaceholder.postman_collection \
 
 **Note:** HTML reporter is not supported for v3 collections. For visual HTML reports, use the Postman desktop application to import the v3 collection and generate reports there. The CLI provides text-based output for automated runs.
 
+</details>
+
 ---
 
-## 📚 Resources
+## Resources
 
 - [Postman Documentation](https://learning.postman.com/)
 - [Postman CLI Documentation](https://learning.postman.com/docs/postman-cli/introduction/)
@@ -379,13 +436,13 @@ postman collection run postman/collections/jsonplaceholder.postman_collection \
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 📞 Contact
+## Contact
 
 For questions or issues, please open a GitHub issue.
 
