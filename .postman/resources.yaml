@@ -1,0 +1,27 @@
+resources:
+  - type: collection
+    id: jsonplaceholder-collection
+    name: JSONPlaceholder API Tests
+    path: ../postman/collections/jsonplaceholder.postman_collection
+  - type: environment
+    id: local
+    name: Local
+    path: ../postman/environments/Local.environment.yaml
+  - type: environment
+    id: production
+    name: Production
+    path: ../postman/environments/Production.environment.yaml
+  - type: environment
+    id: staging
+    name: Staging
+    path: ../postman/environments/Staging.environment.yaml
+  - type: globals
+    id: globals
+    name: Globals
+    path: ../postman/globals/globals.postman_globals.yaml
+
+localResources:
+  docs:
+    - ../README.md
+workspace:
+  id: 27c4c767-bf2a-4d9d-8cf7-9278373a653b
