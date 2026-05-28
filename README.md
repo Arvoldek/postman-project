@@ -61,7 +61,6 @@ postman-project/
 │       └── manual-dispatch.yml
 ├── package.json
 ├── package-lock.json
-├── newman-reporter-html.zip
 └── README.md
 ```
 
@@ -132,11 +131,16 @@ newman run postman/collections/jsonplaceholder.postman_collection.json \
 
 | Script | Description |
 |--------|-------------|
-| `npm test` | Run basic tests with CLI reporter |
-| `npm run test:html` | Run tests with HTML and CLI reporters |
-| `npm run test:junit` | Run tests with JUnit and CLI reporters |
+| `npm test` | Run all tests with CLI reporter |
+| `npm run test:html` | Run all tests with HTML and CLI reporters |
+| `npm run test:junit` | Run all tests with JUnit and CLI reporters |
 | `npm run test:smoke` | Run smoke tests only |
 | `npm run test:regression` | Run regression tests only |
+| `npm run test:positive` | Run positive tests only |
+| `npm run test:negative` | Run negative tests only |
+| `npm run test:staging` | Run all tests against staging environment |
+| `npm run test:production` | Run all tests against production environment |
+| `npm run test:all` | Run full test suite with both HTML and JUnit reports |
 
 ---
 
@@ -207,16 +211,17 @@ This project uses GitHub Actions for continuous integration and automated testin
 ### Workflows
 
 1. **API Tests Workflow** (`.github/workflows/api-tests.yml`)
-   - Runs on push to main branch
-   - Runs on pull request to main branch
-   - Supports manual dispatch
-   - Generates HTML and JUnit reports
-   - Uploads test artifacts
+   - **Triggers:** Push to main branch, Pull request to main branch, Manual dispatch
+   - **Features:** Auto-runs on code changes, supports environment selection (local/staging), folder-based test execution
+   - **Output:** HTML and JUnit reports uploaded as artifacts, test results published to GitHub Checks
 
 2. **Manual Dispatch Workflow** (`.github/workflows/manual-dispatch.yml`)
-   - Allows manual triggering of tests
-   - Supports selecting environment and test type
-   - Supports specifying number of iterations
+   - **Triggers:** Manual dispatch only
+   - **Inputs:**
+     - `environment`: local, staging, or production
+     - `test-type`: full, smoke, regression, positive, or negative
+     - `iterations`: Number of test iterations (default: 1)
+   - **Output:** HTML and JUnit reports uploaded as artifacts
 
 ### Triggering Tests
 
