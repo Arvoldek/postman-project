@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-05-28",
+    "description": "Test data templates and fixtures for JSONPlaceholder API tests"
+  },
+  "posts": {
+    "valid": {
+      "title": "Test Post ${{$randomUUID}}",
+      "body": "This is a test post created at ${{$timestamp}}",
+      "userId": 1
+    },
+    "invalid_missing_fields": {
+      "title": "Incomplete Post"
+    },
+    "invalid_empty": {},
+    "update": {
+      "id": 1,
+      "title": "Updated Title ${{$randomUUID}}",
+      "body": "Updated body content",
+      "userId": 1
+    },
+    "partial_update": {
+      "title": "Partially Updated Title ${{$randomUUID}}"
+    },
+    "with_special_chars": {
+      "title": "Test Post with Special Chars: !@#$%^&*()",
+      "body": "Body with special characters and unicode: \u00E9\u00E8\u00E0",
+      "userId": 1
+    },
+    "with_long_content": {
+      "title": "Test Post with Long Title That Exceeds Typical Length Limits",
+      "body": "This is a very long body content that spans multiple sentences and paragraphs. It contains a lot of text to test how the API handles large payloads. This is useful for testing response time and data handling capabilities of the server. The content should be properly stored and retrieved without any data loss or corruption.",
+      "userId": 1
+    }
+  },
+  "users": {
+    "valid": {
+      "name": "Test User",
+      "username": "testuser",
+      "email": "test@example.com",
+      "address": {
+        "street": "123 Test St",
+        "suite": "Apt. 556",
+        "city": "Test City",
+        "zipcode": "12345-6789",
+        "geo": {
+          "lat": "-37.3159",
+          "lng": "81.1496"
+        }
+      },
+      "phone": "1-770-736-8031 x56442",
+      "website": "testuser.org",
+      "company": {
+        "name": "Test Company",
+        "catchPhrase": "Test catch phrase",
+        "bs": "test business"
+      }
+    },
+    "minimal": {
+      "name": "Minimal User",
+      "username": "minimaluser",
+      "email": "minimal@example.com"
+    }
+  },
+  "comments": {
+    "valid": {
+      "body": "Test comment",
+      "email": "test@example.com",
+      "name": "Test Commenter",
+      "postId": 1
+    },
+    "with_unicode": {
+      "body": "Comment with unicode characters: \u00E9\u00E8\u00E0 \u263A \u263B",
+      "email": "unicode@example.com",
+      "name": "Unicode Commenter",
+      "postId": 1
+    },
+    "long_comment": {
+      "body": "This is a very long comment that tests the API's ability to handle large text payloads. It contains multiple sentences and paragraphs to ensure proper storage and retrieval.",
+      "email": "longcomment@example.com",
+      "name": "Long Commenter",
+      "postId": 1
+    }
+  },
+  "albums": {
+    "valid": {
+      "title": "Test Album ${{$randomUUID}}",
+      "userId": 1
+    }
+  },
+  "photos": {
+    "valid": {
+      "albumId": 1,
+      "title": "Test Photo ${{$randomUUID}}",
+      "url": "https://example.com/photo.jpg",
+      "thumbnailUrl": "https://example.com/thumb.jpg"
+    }
+  },
+  "expected_responses": {
+    "post": {
+      "id": "number",
+      "userId": "number",
+      "title": "string",
+      "body": "string"
+    },
+    "user": {
+      "id": "number",
+      "name": "string",
+      "username": "string",
+      "email": "string",
+      "address": "object",
+      "phone": "string",
+      "website": "string",
+      "company": "object"
+    },
+    "comment": {
+      "id": "number",
+      "postId": "number",
+      "name": "string",
+      "email": "string",
+      "body": "string"
+    },
+    "album": {
+      "id": "number",
+      "userId": "number",
+      "title": "string"
+    },
+    "photo": {
+      "id": "number",
+      "albumId": "number",
+      "title": "string",
+      "url": "string",
+      "thumbnailUrl": "string"
+    }
+  },
+  "random_data": {
+    "uuid": "{{$randomUUID}}",
+    "timestamp": "{{$timestamp}}",
+    "random_number": "{{$randomInt}}",
+    "random_string": "{{$randomString}}"
+  },
+  "fixtures": {
+    "post_ids": [1, 2, 3, 4, 5, 10, 15, 20, 50, 100],
+    "user_ids": [1, 2, 3, 4, 5, 10],
+    "comment_ids": [1, 2, 3, 5, 10, 50, 100, 200, 500],
+    "album_ids": [1, 2, 3, 5, 10, 50, 100],
+    "non_existent_ids": [999, 9999, 99999, 999999]
+  }
+}

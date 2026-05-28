@@ -1,0 +1,84 @@
+name: Manual API Test Dispatch
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        required: true
+        default: 'local'
+        type: choice
+        options:
+          - local
+          - staging
+          - production
+      test-type:
+        description: 'Type of tests to run'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - smoke
+          - regression
+          - positive
+          - negative
+      iterations:
+        description: 'Number of iterations'
+        required: false
+        default: '1'
+        type: string
+
+jobs:
+  manual-tests:
+    name: Manual API Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Manual Tests
+        run: |
+          FOLDER=""
+          case "${{ inputs.test-type }}" in
+            smoke)
+              FOLDER="Smoke Tests"
+              ;;
+            regression)
+              FOLDER="Regression Tests"
+              ;;
+            positive)
+              FOLDER="Positive Tests"
+              ;;
+            negative)
+              FOLDER="Negative Tests"
+              ;;
+          esac
+          
+          newman run postman/collections/jsonplaceholder.postman_collection.json \
+            -e postman/environments/${{ inputs.environment }}.postman_environment.json \
+            ${{ FOLDER != '' && format('--folder "{0}"', FOLDER) || '' }} \
+            --iteration-count ${{ inputs.iterations }} \
+            --reporters cli,junit,html \
+            --reporter-junit-export manual-test-results.xml \
+            --reporter-html-export manual-test-results.html \
+            --color on
+
+      - name: Upload Manual Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: manual-api-test-results
+          path: |
+            manual-test-results.html
+            manual-test-results.xml

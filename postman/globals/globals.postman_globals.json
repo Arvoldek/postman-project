@@ -1,0 +1,21 @@
+{
+  "id": "globals",
+  "name": "Globals",
+  "values": [
+    {
+      "key": "Content-Type",
+      "value": "application/json",
+      "type": "default"
+    },
+    {
+      "key": "Accept",
+      "value": "application/json",
+      "type": "default"
+    },
+    {
+      "key": "User-Agent",
+      "value": "PostmanRuntime/7.32.2",
+      "type": "default"
+    }
+  ]
+}

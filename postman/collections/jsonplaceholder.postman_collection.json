@@ -1,0 +1,624 @@
+{
+  "info": {
+    "_postman_id": "jsonplaceholder-collection",
+    "name": "JSONPlaceholder API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Comprehensive API test suite for JSONPlaceholder REST API with 30+ test cases covering Posts, Users, Comments, Albums, and Photos resources",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+  "item": [
+    {
+      "name": "Smoke Tests",
+      "description": "Quick tests to verify basic API functionality",
+      "item": [
+        {
+          "name": "GET All Posts",
+          "description": "API-B-001: Verify API is responding and returns posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/posts",
+              "host": ["{{baseUrl}}"],
+              "path": ["posts"]
+            }
+          },
+          "response": [],
+          "tests": "pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"Response is array\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('array'); }); pm.test(\"Response has posts\", function () { var data = pm.response.json(); pm.expect(data.length).to.be.at.least(1); }); pm.test(\"Each post has required fields\", function () { var data = pm.response.json(); data.forEach(function(post) { pm.expect(post).to.have.property('id'); pm.expect(post).to.have.property('userId'); pm.expect(post).to.have.property('title'); pm.expect(post).to.have.property('body'); }); });"
+        },
+        {
+          "name": "GET Single Post",
+          "description": "API-B-003: Verify single post retrieval",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/posts/1",
+              "host": ["{{baseUrl}}"],
+              "path": ["posts", "1"]
+            }
+          },
+          "response": [],
+          "tests": "pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"Response is object\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('object'); }); pm.test(\"Post has all required fields\", function () { var data = pm.response.json(); pm.expect(data).to.have.property('id'); pm.expect(data).to.have.property('userId'); pm.expect(data).to.have.property('title'); pm.expect(data).to.have.property('body'); }); pm.test(\"Post ID matches\", function () { var data = pm.response.json(); pm.expect(data.id).to.equal(1); });"
+        },
+        {
+          "name": "GET All Users",
+          "description": "API-U-001: Verify users endpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["users"]
+            }
+          },
+          "response": [],
+          "tests": "pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"Response is array\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('array'); }); pm.test(\"Response has users\", function () { var data = pm.response.json(); pm.expect(data.length).to.be.at.least(1); });"
+        }
+      ]
+    },
+    {
+      "name": "Positive Tests",
+      "description": "Tests with valid inputs that should succeed",
+      "item": [
+        {
+          "name": "Posts",
+          "description": "Positive tests for Posts resource",
+          "item": [
+            {
+              "name": "GET All Posts - Full Validation",
+              "description": "API-B-001 & API-B-002: Complete validation of GET /posts",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/posts",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-001: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-B-002: Response is array\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('array'); }); pm.test(\"API-B-002: Has exactly 100 posts\", function () { var data = pm.response.json(); pm.expect(data).to.have.lengthOf(100); }); pm.test(\"API-B-002: Each post has correct structure\", function () { var data = pm.response.json(); data.forEach(function(post) { pm.expect(post.id).to.be.a('number'); pm.expect(post.userId).to.be.a('number'); pm.expect(post.title).to.be.a('string'); pm.expect(post.body).to.be.a('string'); }); });"
+            },
+            {
+              "name": "GET Single Post - Full Validation",
+              "description": "API-B-003 & API-B-004: Complete validation of GET /posts/:id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/posts/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "1"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-003: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-B-004: Response has correct structure\", function () { var data = pm.response.json(); pm.expect(data.id).to.be.a('number').and.to.equal(1); pm.expect(data.userId).to.be.a('number'); pm.expect(data.title).to.be.a('string'); pm.expect(data.body).to.be.a('string'); });"
+            },
+            {
+              "name": "GET Posts by User ID",
+              "description": "API-B-006: Verify filtering by userId parameter",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/posts?userId=1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"],
+                  "query": [{"key": "userId", "value": "1"}]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-006: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-B-006: All posts belong to user 1\", function () { var data = pm.response.json(); data.forEach(function(post) { pm.expect(post.userId).to.equal(1); }); }); pm.test(\"API-B-006: Response is array\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('array'); });"
+            },
+            {
+              "name": "GET Posts with Multiple Query Params",
+              "description": "API-B-007: Verify multiple query parameters",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/posts?userId=1&_limit=5",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"],
+                  "query": [{"key": "userId", "value": "1"}, {"key": "_limit", "value": "5"}]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-007: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-B-007: Response has at most 5 items\", function () { var data = pm.response.json(); pm.expect(data.length).to.be.at.most(5); }); pm.test(\"API-B-007: All posts belong to user 1\", function () { var data = pm.response.json(); data.forEach(function(post) { pm.expect(post.userId).to.equal(1); }); });"
+            },
+            {
+              "name": "POST Create Valid Post",
+              "description": "API-B-008 & API-B-009: Create new post with valid data",
+              "request": {
+                "method": "POST",
+                "header": [{"key": "Content-Type", "value": "application/json"}],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Test Post\",\n  \"body\": \"Test body content\",\n  \"userId\": 1\n}",
+                  "options": {"raw": {"language": "json"}}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/posts",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-008: Status code is 201\", function () { pm.response.to.have.status(201); }); pm.test(\"API-B-009: Response contains ID\", function () { var data = pm.response.json(); pm.expect(data).to.have.property('id'); pm.expect(data.id).to.be.a('number'); }); pm.test(\"API-B-009: Response contains title\", function () { var data = pm.response.json(); pm.expect(data.title).to.equal('Test Post'); }); pm.test(\"API-B-009: Store created post ID\", function () { var data = pm.response.json(); pm.collectionVariables.set('createdPostId', data.id); });"
+            },
+            {
+              "name": "PUT Update Post",
+              "description": "API-B-013 & API-B-014: Update existing post",
+              "request": {
+                "method": "PUT",
+                "header": [{"key": "Content-Type", "value": "application/json"}],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 1,\n  \"title\": \"Updated Title\",\n  \"body\": \"Updated body\",\n  \"userId\": 1\n}",
+                  "options": {"raw": {"language": "json"}}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/posts/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "1"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-013: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-B-014: Response contains updated data\", function () { var data = pm.response.json(); pm.expect(data.title).to.equal('Updated Title'); pm.expect(data.body).to.equal('Updated body'); pm.expect(data.id).to.equal(1); });"
+            },
+            {
+              "name": "PATCH Partial Update",
+              "description": "API-B-016: Partial update of post",
+              "request": {
+                "method": "PATCH",
+                "header": [{"key": "Content-Type", "value": "application/json"}],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Partially Updated Title\"\n}",
+                  "options": {"raw": {"language": "json"}}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/posts/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "1"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-016: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-B-016: Title is updated\", function () { var data = pm.response.json(); pm.expect(data.title).to.equal('Partially Updated Title'); }); pm.test(\"API-B-016: Other fields preserved\", function () { var data = pm.response.json(); pm.expect(data).to.have.property('id'); pm.expect(data).to.have.property('body'); pm.expect(data).to.have.property('userId'); });"
+            },
+            {
+              "name": "DELETE Existing Post",
+              "description": "API-B-017: Delete existing post",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/posts/{{createdPostId}}",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "{{createdPostId}}"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-017: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-B-017: Response is object\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('object'); });"
+            }
+          ]
+        },
+        {
+          "name": "Users",
+          "description": "Positive tests for Users resource",
+          "item": [
+            {
+              "name": "GET All Users",
+              "description": "API-U-001: Get all users",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-U-001: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-U-001: Response is array with 10 users\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('array').and.to.have.lengthOf(10); }); pm.test(\"API-U-001: Each user has required fields\", function () { var data = pm.response.json(); data.forEach(function(user) { pm.expect(user).to.have.property('id'); pm.expect(user).to.have.property('name'); pm.expect(user).to.have.property('username'); pm.expect(user).to.have.property('email'); }); });"
+            },
+            {
+              "name": "GET Single User",
+              "description": "API-U-002: Get single user by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "1"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-U-002: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-U-002: User ID matches\", function () { var data = pm.response.json(); pm.expect(data.id).to.equal(1); }); pm.test(\"API-U-002: Has all required fields\", function () { var data = pm.response.json(); pm.expect(data).to.have.property('name'); pm.expect(data).to.have.property('username'); pm.expect(data).to.have.property('email'); });"
+            }
+          ]
+        },
+        {
+          "name": "Comments",
+          "description": "Positive tests for Comments resource",
+          "item": [
+            {
+              "name": "GET All Comments",
+              "description": "API-C-001: Get all comments",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/comments",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["comments"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-C-001: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-C-001: Response is array with 500 comments\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('array').and.to.have.lengthOf(500); }); pm.test(\"API-C-001: Each comment has required fields\", function () { var data = pm.response.json(); data.forEach(function(comment) { pm.expect(comment).to.have.property('id'); pm.expect(comment).to.have.property('postId'); pm.expect(comment).to.have.property('name'); pm.expect(comment).to.have.property('email'); pm.expect(comment).to.have.property('body'); }); });"
+            },
+            {
+              "name": "GET Comments by Post ID",
+              "description": "API-C-002: Get comments for specific post",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/comments?postId=1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["comments"],
+                  "query": [{"key": "postId", "value": "1"}]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-C-002: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-C-002: All comments belong to post 1\", function () { var data = pm.response.json(); data.forEach(function(comment) { pm.expect(comment.postId).to.equal(1); }); }); pm.test(\"API-C-002: Response is array\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('array'); });"
+            },
+            {
+              "name": "GET Single Comment",
+              "description": "API-C-003: Get single comment by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/comments/1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["comments", "1"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-C-003: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-C-003: Comment ID matches\", function () { var data = pm.response.json(); pm.expect(data.id).to.equal(1); }); pm.test(\"API-C-003: Has all required fields\", function () { var data = pm.response.json(); pm.expect(data).to.have.property('postId'); pm.expect(data).to.have.property('name'); pm.expect(data).to.have.property('email'); pm.expect(data).to.have.property('body'); });"
+            }
+          ]
+        },
+        {
+          "name": "Albums & Photos",
+          "description": "Positive tests for Albums and Photos resources",
+          "item": [
+            {
+              "name": "GET All Albums",
+              "description": "API-A-001: Get all albums",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/albums",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["albums"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-A-001: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-A-001: Response is array with 100 albums\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('array').and.to.have.lengthOf(100); }); pm.test(\"API-A-001: Each album has required fields\", function () { var data = pm.response.json(); data.forEach(function(album) { pm.expect(album).to.have.property('id'); pm.expect(album).to.have.property('userId'); pm.expect(album).to.have.property('title'); }); });"
+            },
+            {
+              "name": "GET Photos by Album ID",
+              "description": "API-A-002: Get photos for specific album",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/photos?albumId=1",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["photos"],
+                  "query": [{"key": "albumId", "value": "1"}]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-A-002: Status code is 200\", function () { pm.response.to.have.status(200); }); pm.test(\"API-A-002: All photos belong to album 1\", function () { var data = pm.response.json(); data.forEach(function(photo) { pm.expect(photo.albumId).to.equal(1); }); }); pm.test(\"API-A-002: Each photo has required fields\", function () { var data = pm.response.json(); data.forEach(function(photo) { pm.expect(photo).to.have.property('id'); pm.expect(photo).to.have.property('title'); pm.expect(photo).to.have.property('url'); pm.expect(photo).to.have.property('thumbnailUrl'); }); });"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Negative Tests",
+      "description": "Tests with invalid inputs that should fail gracefully",
+      "item": [
+        {
+          "name": "Posts - Negative Tests",
+          "description": "Negative tests for Posts resource",
+          "item": [
+            {
+              "name": "GET Non-existent Post",
+              "description": "API-B-005: Get non-existent post should return 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/posts/999",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "999"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-005: Status code is 404\", function () { pm.response.to.have.status(404); }); pm.test(\"API-B-005: Response body is empty\", function () { var data = pm.response.json(); pm.expect(data).to.be.empty; });"
+            },
+            {
+              "name": "POST with Invalid Data",
+              "description": "API-B-010: Post with invalid data types",
+              "request": {
+                "method": "POST",
+                "header": [{"key": "Content-Type", "value": "application/json"}],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"\",\n  \"body\": \"\",\n  \"userId\": \"invalid\"\n}",
+                  "options": {"raw": {"language": "json"}}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/posts",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-010: Request accepted (JSONPlaceholder behavior)\", function () { pm.response.to.have.status(201); }); pm.test(\"API-B-010: Response contains ID\", function () { var data = pm.response.json(); pm.expect(data).to.have.property('id'); });"
+            },
+            {
+              "name": "POST with Missing Required Fields",
+              "description": "API-B-011: Post with incomplete data",
+              "request": {
+                "method": "POST",
+                "header": [{"key": "Content-Type", "value": "application/json"}],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Incomplete Post\"\n}",
+                  "options": {"raw": {"language": "json"}}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/posts",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-011: Request accepted (JSONPlaceholder behavior)\", function () { pm.response.to.have.status(201); }); pm.test(\"API-B-011: Response has title\", function () { var data = pm.response.json(); pm.expect(data.title).to.equal('Incomplete Post'); });"
+            },
+            {
+              "name": "POST with Empty Body",
+              "description": "API-B-012: Post with empty body",
+              "request": {
+                "method": "POST",
+                "header": [{"key": "Content-Type", "value": "application/json"}],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {"raw": {"language": "json"}}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/posts",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-012: Request accepted\", function () { pm.response.to.have.status(201); }); pm.test(\"API-B-012: Response contains ID\", function () { var data = pm.response.json(); pm.expect(data).to.have.property('id'); });"
+            },
+            {
+              "name": "PUT Non-existent Post",
+              "description": "API-B-015: Put to non-existent post",
+              "request": {
+                "method": "PUT",
+                "header": [{"key": "Content-Type", "value": "application/json"}],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": 999,\n  \"title\": \"Updated Title\",\n  \"body\": \"Updated body\",\n  \"userId\": 1\n}",
+                  "options": {"raw": {"language": "json"}}
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/posts/999",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "999"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-015: Request accepted (JSONPlaceholder creates post)\", function () { pm.response.to.have.status(200); }); pm.test(\"API-B-015: Response contains ID 999\", function () { var data = pm.response.json(); pm.expect(data.id).to.equal(999); });"
+            },
+            {
+              "name": "DELETE Non-existent Post",
+              "description": "API-B-018: Delete non-existent post",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/posts/99999",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts", "99999"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-B-018: Request accepted (JSONPlaceholder behavior)\", function () { pm.response.to.have.status(200); }); pm.test(\"API-B-018: Response is object\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('object'); });"
+            }
+          ]
+        },
+        {
+          "name": "Users - Negative Tests",
+          "description": "Negative tests for Users resource",
+          "item": [
+            {
+              "name": "GET Non-existent User",
+              "description": "API-U-003: Get non-existent user should return 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/users/999",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["users", "999"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-U-003: Status code is 404\", function () { pm.response.to.have.status(404); }); pm.test(\"API-U-003: Response body is empty\", function () { var data = pm.response.json(); pm.expect(data).to.be.empty; });"
+            }
+          ]
+        },
+        {
+          "name": "Edge Cases - Negative Tests",
+          "description": "Edge case and error handling tests",
+          "item": [
+            {
+              "name": "GET Invalid Endpoint",
+              "description": "API-E-001: Get with invalid endpoint should return 404",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/invalid",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["invalid"]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-E-001: Status code is 404\", function () { pm.response.to.have.status(404); }); pm.test(\"API-E-001: Response body is empty\", function () { var data = pm.response.json(); pm.expect(data).to.be.empty; });"
+            },
+            {
+              "name": "GET with Invalid Query Parameters",
+              "description": "API-E-002: Get with invalid query parameters (JSONPlaceholder ignores them)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/posts?invalid=param",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["posts"],
+                  "query": [{"key": "invalid", "value": "param"}]
+                }
+              },
+              "response": [],
+              "tests": "pm.test(\"API-E-002: Status code is 200 (ignores invalid params)\", function () { pm.response.to.have.status(200); }); pm.test(\"API-E-002: Response is array\", function () { var data = pm.response.json(); pm.expect(data).to.be.an('array'); });"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Regression Tests",
+      "description": "Comprehensive tests to ensure no existing functionality is broken",
+      "item": []
+    },
+    {
+      "name": "Setup",
+      "description": "Setup scripts to run before all tests",
+      "item": [
+        {
+          "name": "Before All Tests",
+          "description": "Initialization scripts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/posts",
+              "host": ["{{baseUrl}}"],
+              "path": ["posts"]
+            }
+          },
+          "response": [],
+          "tests": "pm.test(\"Setup: API is accessible\", function () { pm.response.to.have.status(200); }); pm.collectionVariables.set('startTime', new Date().getTime());"
+        }
+      ]
+    },
+    {
+      "name": "Teardown",
+      "description": "Cleanup scripts to run after all tests",
+      "item": [
+        {
+          "name": "After All Tests",
+          "description": "Cleanup and reporting scripts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/posts",
+              "host": ["{{baseUrl}}"],
+              "path": ["posts"]
+            }
+          },
+          "response": [],
+          "tests": "var startTime = pm.collectionVariables.get('startTime'); var endTime = new Date().getTime(); var duration = endTime - startTime; console.log('Test suite completed in ' + duration + 'ms'); pm.collectionVariables.unset('createdPostId'); pm.collectionVariables.unset('startTime');"
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Set common headers for all requests",
+          "pm.request.headers.add({",
+          "    key: 'Content-Type',",
+          "    value: 'application/json'",
+          "});",
+          "pm.request.headers.add({",
+          "    key: 'Accept',",
+          "    value: 'application/json'",
+          "});",
+          "pm.request.headers.add({",
+          "    key: 'X-Correlation-ID',",
+          "    value: pm.info.requestId",
+          "});"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Global test assertions",
+          "pm.test(\"Response time is less than 1000ms\", function () {",
+          "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+          "});",
+          "if (pm.response.code === 200) {",
+          "    pm.test(\"Content-Type is JSON\", function () {",
+          "        pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+          "    });",
+          "}"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://jsonplaceholder.typicode.com",
+      "type": "default"
+    },
+    {
+      "key": "createdPostId",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "startTime",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

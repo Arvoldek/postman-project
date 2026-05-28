@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Generated reports
+htmlcov/
+reports/
+*.html
+*.xml
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment files with secrets (keep the template)
+*.postman_environment.json
+!postman/environments/*.postman_environment.json
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test artifacts
+manual-test-results.*
+test-results.*

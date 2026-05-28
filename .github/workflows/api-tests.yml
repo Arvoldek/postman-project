@@ -1,0 +1,78 @@
+name: API Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests against'
+        required: true
+        default: 'local'
+        type: choice
+        options:
+          - local
+          - staging
+      folder:
+        description: 'Test folder to run'
+        required: false
+        default: ''
+        type: string
+
+jobs:
+  api-tests:
+    name: Run API Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run API Tests
+        id: api-tests
+        run: |
+          newman run postman/collections/jsonplaceholder.postman_collection.json \
+            -e postman/environments/${{ inputs.environment || 'local' }}.postman_environment.json \
+            ${{ inputs.folder && format('--folder "{0}"', inputs.folder) || '' }} \
+            --reporters cli,junit,html \
+            --reporter-junit-export test-results.xml \
+            --reporter-html-export test-results.html \
+            --color on
+
+      - name: Upload Test Results (HTML)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-test-results-html
+          path: test-results.html
+
+      - name: Upload Test Results (JUnit)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-test-results-junit
+          path: test-results.xml
+
+      - name: Publish Test Results
+        if: always()
+        uses: mikepenz/action-junit-report@v3
+        with:
+          report_paths: 'test-results.xml'
+          fail_on_failure: false
+
+      - name: Check Test Results
+        if: steps.api-tests.outcome != 'success'
+        run: |
+          echo "API Tests failed!"
+          exit 1
