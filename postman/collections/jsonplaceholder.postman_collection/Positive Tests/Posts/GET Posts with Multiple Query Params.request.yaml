@@ -1,0 +1,8 @@
+$kind: http-request
+description: "API-B-007: Verify multiple query parameters"
+url: "{{baseUrl}}/posts?userId=1&_limit=5"
+method: GET
+queryParams:
+  userId: "1"
+  _limit: "5"
+order: 4000

@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-U-002: Get single user by ID"
+url: "{{baseUrl}}/users/1"
+method: GET
+order: 2000

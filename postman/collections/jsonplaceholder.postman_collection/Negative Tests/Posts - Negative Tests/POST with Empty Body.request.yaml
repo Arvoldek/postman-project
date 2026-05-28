@@ -1,0 +1,10 @@
+$kind: http-request
+description: "API-B-012: Post with empty body"
+url: "{{baseUrl}}/posts"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: "{}"
+order: 4000

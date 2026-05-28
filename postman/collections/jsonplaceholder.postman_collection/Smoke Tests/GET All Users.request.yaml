@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-U-001: Verify users endpoint"
+url: "{{baseUrl}}/users"
+method: GET
+order: 3000

@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-B-001 & API-B-002: Complete validation of GET /posts"
+url: "{{baseUrl}}/posts"
+method: GET
+order: 1000

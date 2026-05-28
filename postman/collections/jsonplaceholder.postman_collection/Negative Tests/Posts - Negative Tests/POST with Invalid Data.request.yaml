@@ -1,0 +1,15 @@
+$kind: http-request
+description: "API-B-010: Post with invalid data types"
+url: "{{baseUrl}}/posts"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "",
+      "body": "",
+      "userId": "invalid"
+    }
+order: 2000

@@ -1,0 +1,13 @@
+$kind: http-request
+description: "API-B-016: Partial update of post"
+url: "{{baseUrl}}/posts/1"
+method: PATCH
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Partially Updated Title"
+    }
+order: 7000

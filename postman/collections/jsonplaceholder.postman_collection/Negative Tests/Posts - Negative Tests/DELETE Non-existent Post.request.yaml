@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-B-018: Delete non-existent post"
+url: "{{baseUrl}}/posts/99999"
+method: DELETE
+order: 6000

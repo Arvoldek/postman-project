@@ -1,0 +1,16 @@
+$kind: http-request
+description: "API-B-013 & API-B-014: Update existing post"
+url: "{{baseUrl}}/posts/1"
+method: PUT
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "id": 1,
+      "title": "Updated Title",
+      "body": "Updated body",
+      "userId": 1
+    }
+order: 6000

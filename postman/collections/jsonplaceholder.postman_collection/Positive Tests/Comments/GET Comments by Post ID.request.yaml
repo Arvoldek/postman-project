@@ -1,0 +1,7 @@
+$kind: http-request
+description: "API-C-002: Get comments for specific post"
+url: "{{baseUrl}}/comments?postId=1"
+method: GET
+queryParams:
+  postId: "1"
+order: 2000

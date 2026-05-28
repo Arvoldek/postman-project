@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-B-017: Delete existing post"
+url: "{{baseUrl}}/posts/{{createdPostId}}"
+method: DELETE
+order: 8000

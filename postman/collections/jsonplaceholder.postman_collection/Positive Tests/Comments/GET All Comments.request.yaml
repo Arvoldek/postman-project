@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-C-001: Get all comments"
+url: "{{baseUrl}}/comments"
+method: GET
+order: 1000

@@ -1,0 +1,3 @@
+$kind: collection
+description: Cleanup scripts to run after all tests
+order: 6000

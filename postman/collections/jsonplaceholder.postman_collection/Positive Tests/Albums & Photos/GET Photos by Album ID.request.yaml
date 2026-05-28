@@ -1,0 +1,7 @@
+$kind: http-request
+description: "API-A-002: Get photos for specific album"
+url: "{{baseUrl}}/photos?albumId=1"
+method: GET
+queryParams:
+  albumId: "1"
+order: 2000

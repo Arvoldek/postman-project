@@ -1,0 +1,13 @@
+$kind: http-request
+description: "API-B-011: Post with incomplete data"
+url: "{{baseUrl}}/posts"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Incomplete Post"
+    }
+order: 3000

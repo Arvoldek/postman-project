@@ -1,0 +1,3 @@
+$kind: collection
+description: Setup scripts to run before all tests
+order: 5000

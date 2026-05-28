@@ -1,0 +1,3 @@
+$kind: collection
+description: Comprehensive tests to ensure no existing functionality is broken
+order: 4000

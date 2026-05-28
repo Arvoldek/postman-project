@@ -1,0 +1,3 @@
+$kind: collection
+description: Edge case and error handling tests
+order: 3000

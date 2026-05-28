@@ -1,0 +1,40 @@
+$kind: collection
+id: jsonplaceholder-collection
+name: JSONPlaceholder API Tests
+description: Comprehensive API test suite for JSONPlaceholder REST API with 30+
+  test cases covering Posts, Users, Comments, Albums, and Photos resources
+variables:
+  baseUrl: https://jsonplaceholder.typicode.com
+  createdPostId: ""
+  startTime: ""
+scripts:
+  - type: http:beforeRequest
+    code: |-
+      // Set common headers for all requests
+      pm.request.headers.add({
+          key: 'Content-Type',
+          value: 'application/json'
+      });
+      pm.request.headers.add({
+          key: 'Accept',
+          value: 'application/json'
+      });
+      pm.request.headers.add({
+          key: 'X-Correlation-ID',
+          value: pm.info.requestId
+      });
+    language: text/javascript
+  - type: http:afterResponse
+    code: >-
+      // Global test assertions
+
+      pm.test("Response time is less than 1000ms", function () {
+          pm.expect(pm.response.responseTime).to.be.below(1000);
+      });
+
+      if (pm.response.code === 200) {
+          pm.test("Content-Type is JSON", function () {
+              pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');
+          });
+      }
+    language: text/javascript

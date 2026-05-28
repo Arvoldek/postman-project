@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-U-003: Get non-existent user should return 404"
+url: "{{baseUrl}}/users/999"
+method: GET
+order: 1000

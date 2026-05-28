@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-B-003: Verify single post retrieval"
+url: "{{baseUrl}}/posts/1"
+method: GET
+order: 2000

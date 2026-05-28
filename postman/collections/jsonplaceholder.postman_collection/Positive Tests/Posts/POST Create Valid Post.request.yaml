@@ -1,0 +1,15 @@
+$kind: http-request
+description: "API-B-008 & API-B-009: Create new post with valid data"
+url: "{{baseUrl}}/posts"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "Test Post",
+      "body": "Test body content",
+      "userId": 1
+    }
+order: 5000

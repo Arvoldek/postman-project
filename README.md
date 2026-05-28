@@ -31,13 +31,21 @@ This project implements a comprehensive API test automation suite for JSONPlaceh
 postman-project/
 ├── postman/
 │   ├── collections/
-│   │   └── jsonplaceholder.postman_collection.json
+│   │   └── jsonplaceholder.postman_collection/
+│   │       ├── .resources/
+│   │       │   └── definition.yaml
+│   │       ├── Smoke Tests/
+│   │       ├── Positive Tests/
+│   │       ├── Negative Tests/
+│   │       ├── Regression Tests/
+│   │       ├── Setup/
+│   │       └── Teardown/
 │   ├── environments/
-│   │   ├── local.postman_environment.json
-│   │   ├── staging.postman_environment.json
-│   │   └── production.postman_environment.json
+│   │   ├── local.postman_environment.yaml
+│   │   ├── staging.postman_environment.yaml
+│   │   └── production.postman_environment.yaml
 │   └── globals/
-│       └── globals.postman_globals.json
+│       └── globals.postman_globals.yaml
 ├── tests/
 │   ├── data/
 │   │   ├── test-data.json
@@ -115,8 +123,8 @@ npm run test:regression
 Run with custom environment:
 
 ```bash
-postman collection run postman/collections/jsonplaceholder.postman_collection.json \
-  -e postman/environments/staging.postman_environment.json \
+postman collection run postman/collections/jsonplaceholder.postman_collection \
+  -e postman/environments/staging.postman_environment.yaml \
   --reporters cli,html \
   --reporter-html-export reports/test-results.html
 ```
@@ -423,8 +431,8 @@ pm.test("Each post has required fields", function() {
 
 Run tests with verbose output:
 ```bash
-postman collection run postman/collections/jsonplaceholder.postman_collection.json \
-  -e postman/environments/local.postman_environment.json \
+postman collection run postman/collections/jsonplaceholder.postman_collection \
+  -e postman/environments/local.postman_environment.yaml \
   --verbose
 ```
 

@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-A-001: Get all albums"
+url: "{{baseUrl}}/albums"
+method: GET
+order: 1000

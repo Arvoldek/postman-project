@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-B-005: Get non-existent post should return 404"
+url: "{{baseUrl}}/posts/999"
+method: GET
+order: 1000

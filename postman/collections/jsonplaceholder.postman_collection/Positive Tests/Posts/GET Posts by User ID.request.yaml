@@ -1,0 +1,7 @@
+$kind: http-request
+description: "API-B-006: Verify filtering by userId parameter"
+url: "{{baseUrl}}/posts?userId=1"
+method: GET
+queryParams:
+  userId: "1"
+order: 3000

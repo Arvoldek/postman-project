@@ -1,0 +1,7 @@
+$kind: http-request
+description: "API-E-002: Get with invalid query parameters (JSONPlaceholder ignores them)"
+url: "{{baseUrl}}/posts?invalid=param"
+method: GET
+queryParams:
+  invalid: param
+order: 2000

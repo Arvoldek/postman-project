@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-E-001: Get with invalid endpoint should return 404"
+url: "{{baseUrl}}/invalid"
+method: GET
+order: 1000

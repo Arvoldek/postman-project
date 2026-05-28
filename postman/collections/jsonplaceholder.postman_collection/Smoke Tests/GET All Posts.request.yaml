@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-B-001: Verify API is responding and returns posts"
+url: "{{baseUrl}}/posts"
+method: GET
+order: 1000

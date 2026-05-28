@@ -1,0 +1,5 @@
+$kind: http-request
+description: "API-C-003: Get single comment by ID"
+url: "{{baseUrl}}/comments/1"
+method: GET
+order: 3000

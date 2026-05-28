@@ -1,0 +1,3 @@
+$kind: collection
+description: Tests with valid inputs that should succeed
+order: 2000
