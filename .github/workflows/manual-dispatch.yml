@@ -74,8 +74,8 @@ jobs:
             CMD="$CMD --folder \"$FOLDER\""
           fi
           CMD="$CMD --iteration-count ${{ inputs.iterations }}"
-          CMD="$CMD --reporters cli,html"
-          CMD="$CMD --reporter-html-export reports/manual-test-results.html"
+          CMD="$CMD --reporters cli,htmlextra"
+          CMD="$CMD --reporter-htmlextra-export reports/manual-test-results.html"
           CMD="$CMD --color on"
           
           eval $CMD

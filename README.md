@@ -237,7 +237,7 @@ Test reports are generated in HTML format:
 
 ### HTML Reports
 
-Interactive HTML reports are generated using `newman-reporter-html`. These reports include:
+Interactive HTML reports are generated using `newman-reporter-htmlextra`. These reports include:
 - Summary of all tests
 - Detailed information for each request
 - Request and response data

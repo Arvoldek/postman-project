@@ -50,8 +50,8 @@ jobs:
           if [ -n "${{ inputs.folder }}" ]; then
             CMD="$CMD --folder \"${{ inputs.folder }}\""
           fi
-          CMD="$CMD --reporters cli,html"
-          CMD="$CMD --reporter-html-export reports/test-results.html"
+          CMD="$CMD --reporters cli,htmlextra"
+          CMD="$CMD --reporter-htmlextra-export reports/test-results.html"
           CMD="$CMD --color on"
           
           eval $CMD
