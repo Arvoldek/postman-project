@@ -68,14 +68,14 @@ jobs:
               ;;
           esac
           
-          CMD="npx newman run postman/collections/jsonplaceholder.postman_collection.json"
+          CMD="npx postman collection run postman/collections/jsonplaceholder.postman_collection.json"
           CMD="$CMD -e postman/environments/${{ inputs.environment }}.postman_environment.json"
           if [ -n "$FOLDER" ]; then
-            CMD="$CMD --folder \"$FOLDER\""
+            CMD="$CMD -i \"$FOLDER\""
           fi
           CMD="$CMD --iteration-count ${{ inputs.iterations }}"
-          CMD="$CMD --reporters cli,htmlextra"
-          CMD="$CMD --reporter-htmlextra-export reports/manual-test-results.html"
+          CMD="$CMD --reporters cli,html"
+          CMD="$CMD --reporter-html-export reports/manual-test-results.html"
           CMD="$CMD --color on"
           
           eval $CMD

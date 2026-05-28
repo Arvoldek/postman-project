@@ -13,7 +13,7 @@
 
 ## 📋 Overview
 
-This document outlines a comprehensive plan for implementing API test automation for JSONPlaceholder (a free fake API for testing) using Postman. The tests will be executable locally via Newman (Postman's CLI), in Postman application, and automatically in GitHub Actions.
+This document outlines a comprehensive plan for implementing API test automation for JSONPlaceholder (a free fake API for testing) using Postman. The tests will be executable locally via Postman CLI (Postman's CLI), in Postman application, and automatically in GitHub Actions.
 
 ---
 
@@ -63,7 +63,7 @@ postman-project/
 │       └── manual-dispatch.yml
 ├── package.json
 ├── package-lock.json
-├── newman-reporter-html.zip
+├── Postman CLI-reporter-html.zip
 ├── README.md
 └── plan.md
 ```
@@ -79,7 +79,7 @@ postman-project/
 - [x] Initialize Node.js project (`npm init -y`)
 - [x] Install required dependencies:
   ```bash
-  npm install -D newman newman-reporter-html
+  npm install -D Postman CLI Postman CLI-reporter-html
   ```
 
 ### 1.2 Postman Setup
@@ -424,27 +424,27 @@ pm.test("Verify post no longer exists", function() {
 
 **Status: ✅ COMPLETED**
 
-### 4.1 Local Execution with Newman
+### 4.1 Local Execution with Postman CLI
 
-#### Install Newman Globally
+#### Install Postman CLI Globally
 ```bash
-npm install -g newman
+npm install -g Postman CLI
 ```
 
 #### Run Collection from Command Line
 ```bash
 # Basic execution
-newman run postman/collections/jsonplaceholder.postman_collection.json \
+Postman CLI run postman/collections/jsonplaceholder.postman_collection.json \
   -e postman/environments/local.postman_environment.json \
   --reporters cli,html \
   --reporter-html-export reports/test-results-$(date +%Y%m%d-%H%M%S).html
 
 # With custom delay between requests
-newman run postman/collections/jsonplaceholder.postman_collection.json \
+Postman CLI run postman/collections/jsonplaceholder.postman_collection.json \
   --delay-request 100
 
 # Run specific folder
-newman run postman/collections/jsonplaceholder.postman_collection.json \
+Postman CLI run postman/collections/jsonplaceholder.postman_collection.json \
   --folder "Positive Tests"
 ```
 
@@ -452,14 +452,14 @@ newman run postman/collections/jsonplaceholder.postman_collection.json \
 ```json
 {
   "scripts": {
-    "test": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli",
-    "test:html": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli,html --reporter-html-export reports/test-results.html",
-    "test:smoke": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Smoke Tests\" --reporters cli",
-    "test:regression": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Regression Tests\" --reporters cli,html --reporter-html-export reports/regression-results.html",
-    "test:positive": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Positive Tests\" --reporters cli",
-    "test:negative": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Negative Tests\" --reporters cli",
-    "test:staging": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/staging.postman_environment.json --reporters cli",
-    "test:production": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/production.postman_environment.json --reporters cli",
+    "test": "Postman CLI run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli",
+    "test:html": "Postman CLI run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli,html --reporter-html-export reports/test-results.html",
+    "test:smoke": "Postman CLI run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Smoke Tests\" --reporters cli",
+    "test:regression": "Postman CLI run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Regression Tests\" --reporters cli,html --reporter-html-export reports/regression-results.html",
+    "test:positive": "Postman CLI run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Positive Tests\" --reporters cli",
+    "test:negative": "Postman CLI run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Negative Tests\" --reporters cli",
+    "test:staging": "Postman CLI run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/staging.postman_environment.json --reporters cli",
+    "test:production": "Postman CLI run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/production.postman_environment.json --reporters cli",
     "test:all": "npm run test:html"
   }
 }
@@ -522,7 +522,7 @@ jobs:
       - name: Run API Tests
         id: api-tests
         run: |
-          newman run postman/collections/jsonplaceholder.postman_collection.json \
+          Postman CLI run postman/collections/jsonplaceholder.postman_collection.json \
             -e postman/environments/${{ inputs.environment || 'local' }}.postman_environment.json \
             ${{ inputs.folder && format('--folder "{0}"', inputs.folder) || '' }} \
             --reporters cli,html \
@@ -617,7 +617,7 @@ jobs:
               ;;
           esac
           
-          newman run postman/collections/jsonplaceholder.postman_collection.json \
+          Postman CLI run postman/collections/jsonplaceholder.postman_collection.json \
             -e postman/environments/${{ inputs.environment }}.postman_environment.json \
             ${{ FOLDER != '' && format('--folder "{0}"', FOLDER) || '' }} \
             --iteration-count ${{ inputs.iterations }} \
@@ -640,7 +640,7 @@ jobs:
 **Status: ✅ COMPLETED**
 
 ### 6.1 HTML Reports
-- [x] Newman HTML reporter generates interactive reports
+- [x] Postman CLI HTML reporter generates interactive reports
 - [x] Store reports as artifacts in GitHub Actions
 - [ ] Include screenshots in reports for failed tests (future enhancement)
 
@@ -752,7 +752,7 @@ jobs:
 - [x] Implement Edge case tests (API-E-001 to API-E-003)
 
 ### Week 4: Automation & CI/CD
-- [x] Set up local Newman execution
+- [x] Set up local Postman CLI execution
 - [x] Create package.json scripts
 - [x] Implement GitHub Actions workflows
 - [x] Test CI/CD integration
@@ -770,17 +770,17 @@ jobs:
 | Tool | Version | Purpose |
 |------|---------|---------|
 | Postman | Latest | API testing and development |
-| Newman | Latest | Postman CLI execution |
-| Node.js | 20.x | Runtime for Newman |
+| Postman CLI | Latest | Postman CLI execution |
+| Node.js | 20.x | Runtime for Postman CLI |
 | GitHub Actions | N/A | CI/CD automation |
-| newman-reporter-html | Latest | HTML test reports |
+| Postman CLI-reporter-html | Latest | HTML test reports |
 
 ---
 
 ## 📚 References
 
 - [Postman Documentation](https://learning.postman.com/)
-- [Newman Documentation](https://github.com/postmanlabs/newman)
+- [Postman CLI Documentation](https://github.com/postmanlabs/Postman CLI)
 - [JSONPlaceholder API](https://jsonplaceholder.typicode.com/)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 
@@ -805,7 +805,7 @@ jobs:
 
 ### Phase 1-3 Completion
 - [x] All 30+ test cases implemented (29/30 - rate limiting not applicable)
-- [x] Tests run successfully locally via Newman
+- [x] Tests run successfully locally via Postman CLI
 - [x] Tests run successfully in Postman application
 - [x] Documentation complete and up-to-date
 

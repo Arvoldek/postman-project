@@ -9,7 +9,7 @@
 ## 📋 Overview
 
 This project implements a comprehensive API test automation suite for JSONPlaceholder (a free fake API for testing) using Postman. The tests can be executed:
-- Locally via Newman (Postman's CLI)
+- Locally via Postman CLI
 - In Postman application
 - Automatically in GitHub Actions
 
@@ -92,7 +92,7 @@ postman-project/
 
 ## 🏃 Running Tests
 
-### Local Execution with Newman
+### Local Execution with Postman CLI
 
 Run all tests with HTML report:
 
@@ -115,7 +115,7 @@ npm run test:regression
 Run with custom environment:
 
 ```bash
-newman run postman/collections/jsonplaceholder.postman_collection.json \
+postman collection run postman/collections/jsonplaceholder.postman_collection.json \
   -e postman/environments/staging.postman_environment.json \
   --reporters cli,html \
   --reporter-html-export reports/test-results.html
@@ -237,7 +237,7 @@ Test reports are generated in HTML format:
 
 ### HTML Reports
 
-Interactive HTML reports are generated using `newman-reporter-htmlextra`. These reports include:
+Interactive HTML reports are generated using Postman CLI's built-in HTML reporter. These reports include:
 - Summary of all tests
 - Detailed information for each request
 - Request and response data
@@ -423,7 +423,7 @@ pm.test("Each post has required fields", function() {
 
 Run tests with verbose output:
 ```bash
-newman run postman/collections/jsonplaceholder.postman_collection.json \
+postman collection run postman/collections/jsonplaceholder.postman_collection.json \
   -e postman/environments/local.postman_environment.json \
   --verbose
 ```
@@ -433,7 +433,7 @@ newman run postman/collections/jsonplaceholder.postman_collection.json \
 ## 📚 Resources
 
 - [Postman Documentation](https://learning.postman.com/)
-- [Newman Documentation](https://github.com/postmanlabs/newman)
+- [Postman CLI Documentation](https://learning.postman.com/docs/postman-cli/introduction/)
 - [JSONPlaceholder API](https://jsonplaceholder.typicode.com/)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Chai Assertion Library](https://www.chaijs.com/)

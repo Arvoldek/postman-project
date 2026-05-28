@@ -1,20 +1,20 @@
 {
   "name": "postman-project",
   "version": "1.0.0",
-  "description": "API Test Automation for JSONPlaceholder using Postman and Newman",
+  "description": "API Test Automation for JSONPlaceholder using Postman CLI",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "test": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli",
-    "test:html": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli,htmlextra --reporter-htmlextra-export reports/test-results.html",
-    "test:smoke": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Smoke Tests\" --reporters cli",
-    "test:regression": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Regression Tests\" --reporters cli,htmlextra --reporter-htmlextra-export reports/regression-results.html",
-    "test:positive": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Positive Tests\" --reporters cli",
-    "test:negative": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --folder \"Negative Tests\" --reporters cli",
-    "test:staging": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/staging.postman_environment.json --reporters cli",
-    "test:production": "newman run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/production.postman_environment.json --reporters cli",
+    "test": "postman collection run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli",
+    "test:html": "postman collection run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json --reporters cli,html --reporter-html-export reports/test-results.html",
+    "test:smoke": "postman collection run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json -i \"Smoke Tests\" --reporters cli",
+    "test:regression": "postman collection run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json -i \"Regression Tests\" --reporters cli,html --reporter-html-export reports/regression-results.html",
+    "test:positive": "postman collection run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json -i \"Positive Tests\" --reporters cli",
+    "test:negative": "postman collection run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/local.postman_environment.json -i \"Negative Tests\" --reporters cli",
+    "test:staging": "postman collection run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/staging.postman_environment.json --reporters cli",
+    "test:production": "postman collection run postman/collections/jsonplaceholder.postman_collection.json -e postman/environments/production.postman_environment.json --reporters cli",
     "test:all": "npm run test:html"
   },
   "repository": {
@@ -30,7 +30,6 @@
   },
   "homepage": "https://github.com/Arvoldek/postman-project#readme",
   "devDependencies": {
-    "newman": "^6.2.2",
-    "newman-reporter-htmlextra": "^1.23.1"
+    "postman-cli": "^1.38.0"
   }
 }

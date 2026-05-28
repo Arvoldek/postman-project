@@ -30,10 +30,10 @@ jobs:
       - name: Run API Tests
         id: api-tests
         run: |
-          CMD="npx newman run postman/collections/jsonplaceholder.postman_collection.json"
+          CMD="npx postman collection run postman/collections/jsonplaceholder.postman_collection.json"
           CMD="$CMD -e postman/environments/local.postman_environment.json"
-          CMD="$CMD --reporters cli,htmlextra"
-          CMD="$CMD --reporter-htmlextra-export reports/test-results.html"
+          CMD="$CMD --reporters cli,html"
+          CMD="$CMD --reporter-html-export reports/test-results.html"
           CMD="$CMD --color on"
           
           eval $CMD
