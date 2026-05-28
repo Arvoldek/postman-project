@@ -32,18 +32,10 @@ jobs:
         run: |
           CMD="npx postman collection run postman/collections/jsonplaceholder.postman_collection"
           CMD="$CMD -e postman/environments/local.postman_environment.yaml"
-          CMD="$CMD --reporters cli,html"
-          CMD="$CMD --reporter-html-export reports/test-results.html"
+          CMD="$CMD --reporters cli"
           CMD="$CMD --color on"
           
           eval $CMD
-
-      - name: Upload Test Results (HTML)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: api-test-results-html
-          path: reports/test-results.html
 
       - name: Check Test Results
         if: steps.api-tests.outcome != 'success'

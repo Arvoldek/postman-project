@@ -74,15 +74,7 @@ jobs:
             CMD="$CMD -i \"$FOLDER\""
           fi
           CMD="$CMD --iteration-count ${{ inputs.iterations }}"
-          CMD="$CMD --reporters cli,html"
-          CMD="$CMD --reporter-html-export reports/manual-test-results.html"
+          CMD="$CMD --reporters cli"
           CMD="$CMD --color on"
           
           eval $CMD
-
-      - name: Upload Manual Test Results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: manual-api-test-results
-          path: reports/manual-test-results.html

@@ -125,8 +125,7 @@ Run with custom environment:
 ```bash
 postman collection run postman/collections/jsonplaceholder.postman_collection \
   -e postman/environments/staging.postman_environment.yaml \
-  --reporters cli,html \
-  --reporter-html-export reports/test-results.html
+  --reporters cli
 ```
 
 ### Available npm Scripts
@@ -134,14 +133,12 @@ postman collection run postman/collections/jsonplaceholder.postman_collection \
 | Script | Description |
 |--------|-------------|
 | `npm test` | Run all tests with CLI reporter |
-| `npm run test:html` | Run all tests with HTML and CLI reporters |
 | `npm run test:smoke` | Run smoke tests only |
 | `npm run test:regression` | Run regression tests only |
 | `npm run test:positive` | Run positive tests only |
 | `npm run test:negative` | Run negative tests only |
 | `npm run test:staging` | Run all tests against staging environment |
 | `npm run test:production` | Run all tests against production environment |
-| `npm run test:all` | Run full test suite with HTML report |
 
 ---
 
@@ -238,25 +235,6 @@ To manually trigger tests:
 5. Click "Run workflow"
 
 ---
-
-## 📄 Test Reports
-
-Test reports are generated in HTML format:
-
-### HTML Reports
-
-Interactive HTML reports are generated using Postman CLI's built-in HTML reporter. These reports include:
-- Summary of all tests
-- Detailed information for each request
-- Request and response data
-- Assertion results
-- Timing information
-
-### Report Locations
-
-| Format | Location |
-|--------|----------|
-| HTML | `reports/test-results.html` (or timestamped file) |
 
 ---
 
@@ -435,6 +413,8 @@ postman collection run postman/collections/jsonplaceholder.postman_collection \
   -e postman/environments/local.postman_environment.yaml \
   --verbose
 ```
+
+**Note:** HTML reporter is not supported for v3 collections. Only the CLI reporter is available for multi-protocol collections.
 
 ---
 

@@ -8,14 +8,12 @@
   },
   "scripts": {
     "test": "postman collection run postman/collections/jsonplaceholder.postman_collection -e postman/environments/local.postman_environment.yaml --reporters cli",
-    "test:html": "postman collection run postman/collections/jsonplaceholder.postman_collection -e postman/environments/local.postman_environment.yaml --reporters cli,html --reporter-html-export reports/test-results.html",
     "test:smoke": "postman collection run postman/collections/jsonplaceholder.postman_collection -e postman/environments/local.postman_environment.yaml -i \"Smoke Tests\" --reporters cli",
-    "test:regression": "postman collection run postman/collections/jsonplaceholder.postman_collection -e postman/environments/local.postman_environment.yaml -i \"Regression Tests\" --reporters cli,html --reporter-html-export reports/regression-results.html",
+    "test:regression": "postman collection run postman/collections/jsonplaceholder.postman_collection -e postman/environments/local.postman_environment.yaml -i \"Regression Tests\" --reporters cli",
     "test:positive": "postman collection run postman/collections/jsonplaceholder.postman_collection -e postman/environments/local.postman_environment.yaml -i \"Positive Tests\" --reporters cli",
     "test:negative": "postman collection run postman/collections/jsonplaceholder.postman_collection -e postman/environments/local.postman_environment.yaml -i \"Negative Tests\" --reporters cli",
     "test:staging": "postman collection run postman/collections/jsonplaceholder.postman_collection -e postman/environments/staging.postman_environment.yaml --reporters cli",
-    "test:production": "postman collection run postman/collections/jsonplaceholder.postman_collection -e postman/environments/production.postman_environment.yaml --reporters cli",
-    "test:all": "npm run test:html"
+    "test:production": "postman collection run postman/collections/jsonplaceholder.postman_collection -e postman/environments/production.postman_environment.yaml --reporters cli"
   },
   "repository": {
     "type": "git",
