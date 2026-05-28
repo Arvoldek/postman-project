@@ -3,8 +3,6 @@ node_modules/
 
 # Generated reports
 htmlcov/
-reports/
-*.html
 *.xml
 
 # IDE

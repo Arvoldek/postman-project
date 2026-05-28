@@ -47,6 +47,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Create reports directory
+        run: mkdir -p reports
+
       - name: Run Manual Tests
         run: |
           FOLDER=""
@@ -72,7 +75,7 @@ jobs:
           fi
           CMD="$CMD --iteration-count ${{ inputs.iterations }}"
           CMD="$CMD --reporters cli,html"
-          CMD="$CMD --reporter-html-export manual-test-results.html"
+          CMD="$CMD --reporter-html-export reports/manual-test-results.html"
           CMD="$CMD --color on"
           
           eval $CMD
@@ -82,4 +85,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: manual-api-test-results
-          path: manual-test-results.html
+          path: reports/manual-test-results.html
