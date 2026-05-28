@@ -31,7 +31,7 @@ jobs:
         id: api-tests
         run: |
           CMD="npx postman collection run postman/collections/jsonplaceholder.postman_collection"
-          CMD="$CMD -e postman/environments/local.postman_environment.yaml"
+          CMD="$CMD -e postman/environments/Local.environment.yaml"
           CMD="$CMD --reporters cli"
           CMD="$CMD --color on"
           

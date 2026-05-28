@@ -19,9 +19,21 @@ resources:
     id: globals
     name: Globals
     path: ../postman/globals/globals.postman_globals.yaml
-
 localResources:
   docs:
     - ../README.md
+  collections:
+    - ../postman/collections/jsonplaceholder.postman_collection
+  environments:
+    - ../postman/environments/Local.environment.yaml
+    - ../postman/environments/Production.environment.yaml
+    - ../postman/environments/Staging.environment.yaml
 workspace:
   id: 27c4c767-bf2a-4d9d-8cf7-9278373a653b
+cloudResources:
+  collections:
+    ../postman/collections/jsonplaceholder.postman_collection: 55310715-jsonplaceholder-collection
+  environments:
+    ../postman/environments/Local.environment.yaml: 55310715-68ae4f9e-c7a6-40d0-be31-852550851a5a
+    ../postman/environments/Production.environment.yaml: 55310715-e93c3875-cae4-4f6e-b1c0-10da04414390
+    ../postman/environments/Staging.environment.yaml: 55310715-7a65a603-7048-43c5-a51e-b7390f599c6b
